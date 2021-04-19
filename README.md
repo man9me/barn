@@ -1,3 +1,3 @@
 # barn
 
-staf,sticks and straw
+staff, sticks and straw
