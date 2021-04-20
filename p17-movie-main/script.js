@@ -16,10 +16,13 @@ const search = document.getElementById("search");
 const maon = document.getElementById("main");
 
 async function getMovies() {
+  var guraContainier = document.createElement("div");
+  guraContainier.id = "guraContainier";
   var gura = document.createElement("img");
   gura.src = "gura.gif";
-  gura.id = "gura";
-  main.appendChild(gura);
+  //gura.id = "gura";
+  main.appendChild(guraContainier);
+  guraContainier.appendChild(gura);
   const res = await fetch(API_URL, headers);
   const data = await res.json();
   if (!res.ok) {
