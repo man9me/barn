@@ -21,33 +21,30 @@ function postShark() {
   if (guraContainier) {
     guraContainier.remove();
   } else {
-    
     var guraContainier = document.createElement("div");
     guraContainier.id = "guraContainier";
-    var gura = document.createElement("img");
-    gura.src = "gura.gif";
-    //gura.id = "gura";
+    guraContainier.innerText = "A";
+
     main.appendChild(guraContainier);
-    guraContainier.appendChild(gura);
   }
 }
 
 function unpostShark() {
-  guraContainier.remove();
+  var shark = document.getElementById("guraContainier");
+  shark.remove();
 }
 
 async function getMovies(url) {
-  
+  postShark();
   const res = await fetch(url);
   const data = await res.json();
   console.log("result is ok=", res.ok);
   if (!res.ok) {
-    
     postShark();
     // var text = document.createElement("p");
     // text.innerText = res.text;
   } else {
-    
+    postShark();
     console.log(data.results);
     showMovies(data.results);
   }
