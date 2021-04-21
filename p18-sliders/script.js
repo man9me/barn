@@ -7,14 +7,12 @@ let activeSlide = 0;
 
 rightBtn.addEventListener("click", () => {
   activeSlide !== slides.length - 1 ? activeSlide++ : (activeSlide = 0);
-  console.log(activeSlide);
   setBgToBody();
   setActiveSlide();
 });
 
 leftBtn.addEventListener("click", () => {
   activeSlide !== 0 ? activeSlide-- : (activeSlide = slides.length - 1);
-  console.log(activeSlide);
   setBgToBody();
   setActiveSlide();
 });
