@@ -15,25 +15,43 @@ const form = document.getElementById("form");
 const search = document.getElementById("search");
 const maon = document.getElementById("main");
 
-async function getMovies() {
-  var guraContainier = document.createElement("div");
-  guraContainier.id = "guraContainier";
-  var gura = document.createElement("img");
-  gura.src = "gura.gif";
-  //gura.id = "gura";
-  main.appendChild(guraContainier);
-  guraContainier.appendChild(gura);
-  const res = await fetch(API_URL, headers);
-  const data = await res.json();
-  if (!res.ok) {
-    gura.remove();
-    var text = document.createElement("p");
-    text.innerText = res.text;
+getMovies(API_URL);
+
+function postShark() {
+  if (guraContainier) {
+    guraContainier.remove();
   } else {
-    gura.remove();
+    
+    var guraContainier = document.createElement("div");
+    guraContainier.id = "guraContainier";
+    var gura = document.createElement("img");
+    gura.src = "gura.gif";
+    //gura.id = "gura";
+    main.appendChild(guraContainier);
+    guraContainier.appendChild(gura);
+  }
+}
+
+function unpostShark() {
+  guraContainier.remove();
+}
+
+async function getMovies(url) {
+  
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log("result is ok=", res.ok);
+  if (!res.ok) {
+    
+    postShark();
+    // var text = document.createElement("p");
+    // text.innerText = res.text;
+  } else {
+    
+    console.log(data.results);
     showMovies(data.results);
   }
-  console.log(data.results);
+  // console.log(data.results);
 }
 
 form.addEventListener("submit", (e) => {
@@ -52,20 +70,22 @@ form.addEventListener("submit", (e) => {
   }
 });
 
-function showMovies(data) {
-  main.innerHtml = "";
+function showMovies(movies) {
+  main.innerHTML = "";
+  if (movies.length === 0) {
+    postShark();
+  } else {
+    movies.forEach((data) => {
+      const { title, poster_path, vote_average, overview } = data;
+      // console.log(vote_average);
+      const movieEl = document.createElement("div");
 
-  getMovies.forEach((movie) => {
-    const { title, poster_path, vote_average, overview } = movie;
+      movieEl.classList.add("movie");
 
-    const movieEl = document.createElement("div");
-
-    movieEl.classList.add("movie");
-
-    movieEl.innerHTML = `
+      movieEl.innerHTML = `
     
   <img src='${IMG_PATH + poster_path}' alt="">
-  <div class="moive-info">
+  <div class="movie-info">
     <h3>${title}</h3>
     <span class='${getClassByRate(vote_average)}'>${vote_average}</span>
   </div>
@@ -75,8 +95,9 @@ function showMovies(data) {
   </div>
  
 `;
-    main.appendChild(movieEl);
-  });
+      main.appendChild(movieEl);
+    });
+  }
 }
 
 function getClassByRate(vote) {
