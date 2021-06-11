@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <!-- указать на нашу группу -->
+            <form [formGroup]="signupForm">
+                <div formGroupName="userData">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <!-- указать на поле  formControlName="username" или  [formControlName]="'username'" -->
+                        <!-- в случаи реатив форм валидаторы типо required email, указываются не тут а в скрипте 2рым пораметром к форме -->
+                        <input type="text" id="username" class="form-control" formControlName="username" (ngSubmit)="onSubmit()" />
+
+                        <!-- проверка класов и свойст формы -->
+                        <span *ngIf="
+                !signupForm!.get('userData.username')!.valid &&
+                signupForm!.get('userData.username')!.touched
+              " class="help">
+              <span
+                *ngIf="
+                  signupForm.get('userData.username').errors['forbiddenName']
+                "
+                >This name is forbiden!</span
+              >
+              <span
+                *ngIf="signupForm.get('userData.username').errors['required']"
+                >This field is required!</span
+              ></span
+            >
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              formControlName="email"
+              id="Email"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" [value]="gender" formControlName="gender" />{{
+              gender
+            }}
+          </label>
+        </div>
+
+        <div formArrayName="hobbies">
+          <h4>Hobbys?</h4>
+          <button class="btn btn-default" type="button" (click)="onAdd()">
+            add
+          </button>
+        </div>
+
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()">
+          Submit
+        </button>
+        <div
+          class="form-group"
+          *ngFor="let hobbyControl of hobbies.controls; let i = index"
+        >
+          <input type="text" class="form-control" [formControlName]="i" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
