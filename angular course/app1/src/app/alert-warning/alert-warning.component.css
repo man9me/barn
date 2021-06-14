@@ -1,0 +1,29 @@
+h1 {
+    color: red;
+}
+
+.quadrat {
+    width: 250px;
+    height: 250px;
+    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;
+    /* Safari 4+ */
+    -moz-animation: NAME-YOUR-ANIMATION 1s infinite;
+    /* Fx 5+ */
+    -o-animation: NAME-YOUR-ANIMATION 1s infinite;
+    /* Opera 12+ */
+    animation: NAME-YOUR-ANIMATION 1s infinite;
+    /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes NAME-YOUR-ANIMATION {
+    0%,
+    49% {
+        background-color: rgb(117, 209, 63);
+        border: 3px solid #e50000;
+    }
+    50%,
+    100% {
+        background-color: #e50000;
+        border: 3px solid rgb(117, 209, 63);
+    }
+}
